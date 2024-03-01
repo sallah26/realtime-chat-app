@@ -16,27 +16,36 @@ const Login = ({ setIsAuth }) => {
         });
     };
 
-    const signInWithEmail = (e) => {
+    const signInWithEmail = async (e) => {
         e.preventDefault();
-        console.log("Email:", email);
-        console.log("Password:", password);
-    
-        signInWithEmailAndPassword(auth, email, password);
-        localStorage.setItem("isAuth", true);
+        console.log(email);
+        console.log(password);
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            // localStorage.setItem("isAuth", true);
+            // setIsAuth(true);
+            // navigate('/')
+            console.log(userCredential);
+            console.log("user registerd")
+            
+        } catch (error) {
+            console.error(error);
+        }
+        
 
             // .then((userCredential) => {
             //     // Signed in
             //     const user = userCredential.user;
             //     localStorage.setItem("isAuth", true);
-                setIsAuth(true);
-                navigate("/");
+                // setIsAuth(true);
+                // navigate("/");
             // })
             // .catch((error) => {
             //     // Handle errors here (e.g., display error message)
             //     console.error(error.message);
             // });
             
-    };
+        };
 
     return (
         <section className='flex items-center justify-center min-h-screen flex-col'>
@@ -45,7 +54,7 @@ const Login = ({ setIsAuth }) => {
 
             {/* Email login form */}
             <p>Or log in with your email:</p>
-            <form className="flex flex-col" onSubmit={signInWithEmail}>
+            <form onSubmit={signInWithEmail} className="flex flex-col">
                 <div>
 
                 <label>
@@ -60,7 +69,7 @@ const Login = ({ setIsAuth }) => {
                     <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
                 </div>
-                <button type="submit" className='bg-blue-300 border-2'>Login with Email</button>
+                <button type='submit' className='bg-blue-300 border-2'>Login with Email</button>
             </form>
         </section>
     );
