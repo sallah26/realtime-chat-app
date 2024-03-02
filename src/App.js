@@ -8,6 +8,7 @@ import NoPage from './pages/NoPage.jsx';
 import Login from './pages/Login.jsx';
 import { useState } from 'react';
 import Landing from './pages/Landing.jsx';
+import BuildProfile from './pages/BuildProfile.jsx';
 
 
 
@@ -19,6 +20,8 @@ function App() {
       {isAuth ? <Route path="/" element={<Home setIsAuth={setIsAuth}/>} /> : <Route path="/" element={<Landing />} />}
       
       <Route path="/login" element={<Login setIsAuth={setIsAuth}/>} />
+      <Route path="/buildprofile" element={<BuildProfile />} />
+      
       <Route path="*" element={<NoPage />} />    
     </Routes>
   </Router>
