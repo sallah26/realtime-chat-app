@@ -1,46 +1,49 @@
 import React, { useState } from 'react'
+import { addDoc,collection } from 'firebase/firestore';
+import { auth, db } from '../config/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const BuildProfile = () => {
     const [name, setName] = useState("");
     const [currentRole, setCurrentRole] = useState("");
     const [location, setLocation] = useState("");
-    // const [, set] = useState("");
-    // const [, set] = useState("");
-
-    const handleFormSubmit = (e) =>{
-        e.preventDefault();
-        const data = {
+    const navigate = useNavigate(); 
+    const createBasicProfile = async () =>{
+        await addDoc(collection(db,"basicprofile"),{
+            id: auth.currentUser.uid,
             name: name,
             currentRole: currentRole,
             location: location,
         }
-        console.log(data);
+        )
+        alert("Data is sent to firebase go and check it!")
+        localStorage.hasProfile = true;
+        navigate("/")
     };
 
-    const myData = {
-        
-    }
-    
     return (
-    
+    <section className='flex min-w-full min-h-screen justify-center items-center'>
     <div>
-        <form action="" onSubmit={handleFormSubmit}>
+        <p className='text-3xl'>Let us build your basic profile</p>
             <div>
                 <label htmlFor="name">Enter Your Name Here</label>
-                <input value={name} onChange={((e) => {setName(e.target.value)})} type="text"/>
+                <input className='border-2 p-2' value={name} onChange={((e) => {setName(e.target.value)})} type="text"/>
             </div>
             <div>
                 <label htmlFor="currentrole">What is Your Current Role?</label>
-                <input value={currentRole} onChange={((e) => {setCurrentRole(e.target.value)})} type="text"/>
+                <input className='border-2 p-2' value={currentRole} onChange={((e) => {setCurrentRole(e.target.value)})} type="text"/>
             </div>
             <div>
                 <label htmlFor="currentrole">Where Are You From?</label>
-                <input value={location} onChange={((e) => {setLocation(e.target.value)})} type="text"/>
+                <input className='border-2 p-2' value={location} onChange={((e) => {setLocation(e.target.value)})} type="text"/>
             </div>
-            <button type='submit'>Build Portifolio</button>
-        </form>
-      
+            {/* <div>
+                <label htmlFor="img">Upload your profile picture</label>
+                <input className='border-2 p-2' onChange={()=>{}} type="file"/>
+            </div> */}
+            <button type='' onClick={createBasicProfile} className='bg-green-400 text-white border-2 p-2 px-5'>Build Portifolio</button>      
     </div>
+    </section>
   )
 }
 

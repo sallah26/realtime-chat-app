@@ -13,7 +13,7 @@ import BuildProfile from './pages/BuildProfile.jsx';
 
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false); // State to check if user is logged in or not
+  const [isAuth, setIsAuth] = useState(localStorage.isAuth); // State to check if user is logged in or not
   return (
     <Router>
     <Routes>
