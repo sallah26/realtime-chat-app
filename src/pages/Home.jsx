@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from "../config/firebase";
 import { useNavigate } from 'react-router-dom';
+import AddPost from '../components/AddPost';
+import AllPosts from '../components/AllPosts';
 
 const Home = ({ setIsAuth }) => {
     const [hasProfile, setHasProfile] = useState(false)
@@ -14,9 +16,6 @@ const Home = ({ setIsAuth }) => {
     //   }, 3000);
     //   return () => clearTimeout(timeout);
     // }, []);  
-
-
-
     const handleSignOut = () => {
         signOut(auth).then(() => {
             setIsAuth(false);
@@ -38,9 +37,17 @@ const Home = ({ setIsAuth }) => {
             </div>
         )}
 
-        <section className='flex items-center justify-center min-h-screen'>
+        <section className='flex flex-col items-center justify-center min-h-screen'>
             <p className='text-4xl'>This is the home page <br />Now you are registered user</p>
             <button onClick={handleSignOut} className='bg-red-300 border-4'>Log out</button>
+
+
+            <div className='py-10'>
+                <AddPost />
+            </div>
+            <div>
+                <AllPosts />
+            </div>
         </section>
         </>
     );
